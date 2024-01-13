@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Movie</title>
+    <!-- Add Tailwind CSS link (make sure to include the correct link for your project) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+
+<body class="bg-black text-white">
+
+<div class="container mx-auto my-8 p-8 bg-black bg-opacity-70 shadow-md rounded-md">
+    <h2 class="text-3xl font-bold mb-6 text-red-500">Add movie</h2>
+
+    <form th:action="@{/admin/dashboard/addmovie}" th:object="${movie}" method="post" enctype="application/json">
+        <!-- Input fields for movie properties -->
+        <div class="mb-4">
+            <label class="block text-red-500 text-sm font-bold mb-2" for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}"
+                   class="w-full border border-red-500 p-2 rounded-md bg-black text-white" required />
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-red-500 text-sm font-bold mb-2" for="image">Image URL:</label>
+            <input type="text" id="image" name="image" th:field="*{image}"
+                   class="w-full border border-red-500 p-2 rounded-md bg-black text-white" required />
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-red-500 text-sm font-bold mb-2" for="description">Description:</label>
+            <textarea id="description" name="description" th:field="*{description}"
+                      class="w-full border border-red-500 p-2 rounded-md bg-black text-white" maxlength="500" required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-red-500 text-sm font-bold mb-2" for="genres">Genres:</label>
+            <input type="text" id="genres" name="genres" th:field="*{genders}"
+                   class="w-full border border-red-500 p-2 rounded-md bg-black text-white" required />
+        </div>
+
+        <button type="submit"
+                class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 ease-in-out">Add
+            movie</button>
+    </form>
+</div>
+
+</body>
+</html>

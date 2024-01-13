@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tailwind Starter Template - Minimal Admin Template: Tailwind Toolbox</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <!--Replace with your tailwind.css once created-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+
+    <style>
+        .nunito {
+            font-family: 'nunito', font-sans, serif;
+        }
+
+
+        .border-b-1 {
+            border-bottom-width: 1px;
+        }
+
+        .border-l-1 {
+            border-left-width: 1px;
+        }
+
+        hover\:border-none:hover {
+            border-style: none;
+        }
+
+        #sidebar {
+            transition: ease-in-out all .3s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 150px;
+            box-shadow: 0 25px 50px -12px rgba(255, 0, 0, 0.25);
+            /*shadow-2xl*/
+            background-color: #1a1a1a;
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+
+        #sidebar ul li a {
+            color: #1a1a1a;
+            border-bottom: 1px solid #fff7f7;
+        }
+
+        #sidebar img {
+            filter: brightness(0) invert(1);
+        }
+
+        #header, #header1 {
+            background-color: #1a1a1a;
+        }
+
+        #userButton svg {
+            fill: white;
+        }
+
+        #userMenu {
+            background-color: #1a1a1a;
+            color: white;
+        }
+        #dash{
+            background: #1a1a1a;
+        }
+
+    </style>
+
+</head>
+
+<body class="flex h-screen bg-gray-100 font-sans">
+
+<div id="sidebar" class="h-screen w-16 menu bg-black text-white px-4 flex items-center nunito static fixed shadow">
+
+    <ul class="list-reset">
+        <li class="my-2 md:my-0">
+            <a th:href="@{/admin/dashboard}" class="block py-1 md:py-3 pl-1 align-middle text-red-400 no-underline hover:text-white">
+                <i class="fas fa-home fa-fw mr-3 text-white"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Home</span>
+            </a>
+        </li>
+        <li class="my-2 md:my-0 ">
+            <a th:href="@{/admin/dashboard/users}" class="block py-1 md:py-3 pl-1 align-middle text-red-400 no-underline hover:text-white">
+                <i class="fas fa-user fa-fw mr-3 text-white"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Users</span>
+            </a>
+        </li>
+        <li class="my-2 md:my-0">
+            <a th:href="@{/admin/dashboard/categories}" class="block py-1 md:py-3 pl-1 align-middle text-red-400 no-underline hover:text-white">
+                <i class="fa fa-dna fa-fw mr-3 text-white"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Genres</span>
+            </a>
+        </li>
+        <li class="my-2 md:my-0">
+            <a th:href="@{/admin/dashboard/movies}" class="block py-1 md:py-3 pl-1 align-middle text-red-400 no-underline hover:text-white">
+                <i class="fas fa-feather fa-fw mr-3 text-white"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">movie</span>
+            </a>
+        </li>
+        <!--
+        <li class="my-2 md:my-0">
+            <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-red-400 no-underline hover:text-white">
+                <i class="fa fa-comment fa-fw mr-3 text-white"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Comments</span>
+            </a>
+        </li>
+        <li class="my-2 md:my-0">
+            <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-red-400 no-underline hover:text-white">
+                <i class="fa fa-star fa-fw mr-3 text-white"></i><span class="w-full inline-block pb-1 md:pb-0 text-sm">Stars</span>
+            </a>
+        </li>
+        -->
+    </ul>
+
+</div>
+
+<div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
+
+    <div class="h-40 lg:h-20 w-full flex flex-wrap">
+        <nav id="header" class="bg-red-500 w-full lg:max-w-sm  flex items-center border-b-1 border-red-700 order-2 lg:"
+             style="justify-content: center">
+
+            <img src="https://github.com/Sasuk1/movieHub/blob/main/src/assets/images/movie-Logo.png?raw=true">
+
+        </nav>
+        <nav id="header1" class="bg-red-700 w-auto flex-1 border-b-1 border-red-700 order-1 lg:order-2">
+
+            <div class="flex h-full justify-between items-center">
+
+                <!--Search-->
+                <div class="relative w-full max-w-3xl px-6">
+                    <div class="absolute h-10 mt-1 left-0 top-0 flex items-center pl-10">
+                        <svg class="h-4 w-4 fill-current text-gray-600"
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path
+                                    d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <input id="search-toggle" type="search" placeholder="search"
+                           class="block w-full bg-gray-200 focus:outline-none focus:bg-white focus:shadow-md text-gray-700 font-bold rounded-full pl-12 pr-4 py-3"
+                           onkeyup="updateSearchResults(this.value);">
+
+                </div>
+                <!-- / Search-->
+
+                <!--Menu-->
+
+                <div class="flex relative inline-block pr-6">
+
+                    <div class="relative text-sm">
+                        <button id="userButton"
+                                class="flex items-center focus:outline-none mr-3">
+                            <img class="w-8 h-8 rounded-full mr-4"
+                                 src="https://avatars.githubusercontent.com/u/95450156?v=4" alt="Avatar of User"> <span
+                                class="hidden md:inline-block">Hi, Admin </span>
+                            <svg class="pl-2 h-2" version="1.1"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 129 129"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 enable-background="new 0 0 129 129">
+                                <g>
+                                    <path
+                                            d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z">
+                                    </path>
+                                </g>
+                            </svg>
+                        </button>
+                        <div id="userMenu"
+                             class="bg-black nunito rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
+                            <ul class="list-reset">
+                                <li><a th:href="@{/logout}"
+                                       class="px-4 py-2 block text-white hover:bg-red-700 hover:text-red-100 no-underline hover:no-underline">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- / Menu -->
+
+            </div>
+
+        </nav>
+    </div>
+
+    <!--Dash Content -->
+    <div id="dash-content" class="bg-black py-6 lg:py-0 w-full lg:max-w-sm flex flex-wrap content-start">
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-red-700 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${users.size()}"></h3>
+                        <h5 class="font-bold text-white text-center">Total Users</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-red-700 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${movieList.size()}"></h3>
+                        <h5 class="font-bold text-white text-center">Total movies</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-red-700 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${Genres.size()}"></h3>
+                        <h5 class="font-bold text-white text-center">Total Genres</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${users.size()}"></h3>
+                        <h5 class="font-bold text-gray-500 text-center">Total Users</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${movieList.size()}"></h3>
+                        <h5 class="font-bold text-gray-500 text-center">Total movies</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${Genres.size()}"></h3>
+                        <h5 class="font-bold text-gray-500 text-center">Total Genres</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-1/2 lg:w-full">
+            <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded p-6 m-2 md:mx-10 md:my-6">
+                <div class="flex flex-col items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-3xl text-center" th:text="${comment.size()}"></h3>
+                        <h5 class="font-bold text-gray-500 text-center">Total Comments</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Graph Content -->
+    <div id="main-content" class="w-full flex-1">
+
+        <div class="flex flex-1 flex-wrap">
+
+            <div class="w-full xl:w-2/3 p-6 xl:max-w-6xl" id="dash">
+
+                <!--"Container" for the graphs"-->
+                <div class="max-w-full lg:max-w-3xl xl:max-w-5xl">
+
+                    <!--Graph Card-->
+                    <div class="border-b p-3">
+                        <h5 class="font-bold text-black">Statistic</h5>
+                    </div>
+                    <div class="p-5">
+                        <div class="ct-chart ct-golden-section" id="chart1"></div>
+                    </div>
+                    <!--/Graph Card-->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script>
+    <script>
+        /* Refer to https://gionkunz.github.io/chartist-js/examples.html for setting up the graphs */
+
+        var mainChart = new Chartist.Line('#chart1', {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        series: [
+        [1, 5, 2, 5, 4, 3],
+        [2, 3, 4, 8, 1, 2],
+        [5, 4, 3, 2, 1, 0.5]
+        ]
+    }, {
+        low: 0,
+        showArea: true,
+        showPoint: true,
+        lineSmooth: Chartist.Interpolation.simple({
+        divisor: 2
+    }),
+        fullWidth: true,
+        chartPadding: {
+        right: 20
+    },
+        axisY: {
+        onlyInteger: true,
+        offset: 20
+    }
+    });
+
+        mainChart.on('draw', function (data) {
+        if (data.type === 'line' || data.type === 'area') {
+        data.element.animate({
+        d: {
+        begin: 1000 * data.index,
+        dur: 1000,
+        from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+        to: data.path.clone().stringify(),
+        easing: Chartist.Svg.Easing.easeOutQuint
+    }
+    });
+    }
+    });
+</script>
+
+<script>
+    /*Toggle dropdown list*/
+    /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+    var userMenuDiv = document.getElementById("userMenu");
+    var userMenu = document.getElementById("userButton");
+
+    document.onclick = check;
+
+    function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+        //User Menu
+        if (!checkParent(target, userMenuDiv)) {
+            // click NOT on the menu
+            if (checkParent(target, userMenu)) {
+                // click on the link
+                if (userMenuDiv.classList.contains("invisible")) {
+                    userMenuDiv.classList.remove("invisible");
+                } else {
+                    userMenuDiv.classList.add("invisible");
+                }
+            } else {
+                // click both outside link and outside menu, hide menu
+                userMenuDiv.classList.add("invisible");
+            }
+        }
+
+    }
+
+    function checkParent(t, elm) {
+        while (t.parentNode) {
+            if (t == elm) {
+                return true;
+            }
+            t = t.parentNode;
+        }
+        return false;
+    }
+</script>
+
+</body>
+
+</html>
